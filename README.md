@@ -65,7 +65,7 @@ Visualizations are generated using Python libraries and stored in the `output/vi
 - **Python**: For data analysis and visualization.
 - **Pandas**: For data manipulation and aggregation.
 - **Matplotlib & Plotly**: For static and interactive visualizations.
-- **GeoPandas**: For geographical data processing.
+- **Cartopy**: For geographical data processing.
 - **PostgreSQL**: Database for storing and managing volcanic data.
 - **Leaflet.js**: For geospatial mapping.
 

@@ -51,7 +51,7 @@ The project includes a range of interactive and static visualizations:
 - **Bar charts**: Analyzing average total damage and deaths by volcano type.
 - **Scatter plots**: Identifying relationships between VEI and other factors.
 
-Visualizations are generated using Python libraries and stored in the `output/visualizations` directory.
+Visualizations are generated using Python libraries and stored in the `images` directory.
 
 ## Technologies Used
 

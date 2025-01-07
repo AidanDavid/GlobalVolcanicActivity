@@ -65,8 +65,8 @@ Visualizations are generated using Python libraries and stored in the `output/vi
 ## References
 
 ### Data Sources
-- **Smithsonian Institution Global Volcanism Program**: Comprehensive historical and geological volcanic data.
-- **NOAA Hazard Events Database**: Event-specific volcanic data, including fatalities and damages.
+- **Smithsonian Institution Global Volcanism Program**: ([Comprehensive historical and geological volcanic data.](https://volcano.si.edu/))
+- **NGDC Hazard Events Database**: National Geography Data Center(NGDC), Event-specific volcanic data, including fatalities and damages.
 - **NGDC Location Search**: [NGDC Volcano Location Search](https://www.ngdc.noaa.gov/hazel/view/hazards/volcano/loc-search/).
 - **NGDC Event Search**: [NGDC Volcano Event Search](https://www.ngdc.noaa.gov/hazel/view/hazards/volcano/event-search/).
 

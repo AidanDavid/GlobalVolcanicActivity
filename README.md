@@ -10,21 +10,14 @@ The dataset includes comprehensive information about volcanoes, such as their lo
 
 ## Table of Contents
 
-- [Data Resources](#data-resources)
 - [Usage Guide](#usage-guide)
 - [Visualizations](#visualizations)
 - [Technologies Used](#technologies-used)
+- [References](#references)
+- [Ethical Considerations](#ethical-considerations)
 - [Credits](#credits)
 - [License](#license)
 
-## Data Resources
-
-The data used in this project is sourced from reliable volcanic and geological records, including:
-
-- **Smithsonian Institution Global Volcanism Program**: Comprehensive historical and geological volcanic data.
-- **NOAA Hazard Events Database**: Event-specific volcanic data, including fatalities and damages.
-- **NGDC Location Search**: [NGDC Volcano Location Search](https://www.ngdc.noaa.gov/hazel/view/hazards/volcano/loc-search/).
-- **NGDC Event Search**: [NGDC Volcano Event Search](https://www.ngdc.noaa.gov/hazel/view/hazards/volcano/event-search/).
 
 ## Usage Guide
 
@@ -69,6 +62,26 @@ Visualizations are generated using Python libraries and stored in the `output/vi
 - **PostgreSQL**: Database for storing and managing volcanic data.
 - **Leaflet.js**: For geospatial mapping.
 
+## References
+
+### Data Sources
+- **Smithsonian Institution Global Volcanism Program**: Comprehensive historical and geological volcanic data.
+- **NOAA Hazard Events Database**: Event-specific volcanic data, including fatalities and damages.
+- **NGDC Location Search**: [NGDC Volcano Location Search](https://www.ngdc.noaa.gov/hazel/view/hazards/volcano/loc-search/).
+- **NGDC Event Search**: [NGDC Volcano Event Search](https://www.ngdc.noaa.gov/hazel/view/hazards/volcano/event-search/).
+
+### Code References
+- **Cartopy for Geospatial Mapping**: [Foundations of Cartopy](https://foundations.projectpythia.org/core/cartopy/cartopy.html)
+- **Cartopy Feature Interface (borders and coastline)**: [Cartopy Documentation](https://scitools.org.uk/cartopy/docs/latest/matplotlib/feature_interface.html)
+- **Colormap in Matplotlib**: [Matplotlib Colormaps](https://matplotlib.org/stable/users/explain/colors/colormaps.html)
+- **Colorbar Configuration in Matplotlib**: [Matplotlib Colorbar](https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.colorbar.html)
+- **Projection for World Map**: [Cartopy Projections](https://scitools.org.uk/cartopy/docs/latest/reference/projections.html)
+
+## Ethical Considerations
+
+This project aims to use data responsibly by relying only on public and trusted sources like the Smithsonian Institution and NOAA. No personal or private data has been used, ensuring everyone's privacy. We are aware that historical data might be biased, especially for less studied regions, so we checked multiple sources to reduce this. The project shares volcanic activity trends in a clear and honest way, avoiding exaggeration, to help people understand the information accurately and make informed choices.
+
+
 ## Credits
 
 This project was independently developed by the following developers:
@@ -77,19 +90,13 @@ This project was independently developed by the following developers:
 
 - **Github**: [@Sait0uAsuka](https://github.com/Sait0uAsuka)
 
-<br><br />
-
 **Aidan David**:
 
 - **Github**: [@AidanDavid](https://github.com/AidanDavid)
 
-<br><br />
-
 **Lucas Hejmo Jones**:
 
 - **Github**: [@LucasHejmo](https://github.com/LucasHejmo)
-
-<br><br />
 
 ## License
 

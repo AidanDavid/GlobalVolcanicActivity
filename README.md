@@ -63,12 +63,13 @@ Visualizations are generated using Python libraries and stored in the `images` d
 
 ## Technologies Used
 
-- **Python**: For data analysis and visualization.
-- **Pandas**: For data manipulation and aggregation.
-- **Matplotlib & Plotly**: For static and interactive visualizations.
-- **Cartopy**: For geographical data processing.
-- **PostgreSQL**: Database for storing and managing volcanic data.
+- **Python**: For data analysis and visualization.  
+- **Pandas**: For data manipulation and aggregation.  
+- **Matplotlib & Plotly**: For static and interactive visualizations.  
+- **PostgreSQL**: Database for storing and managing volcanic data.  
 - **Leaflet.js**: For geospatial mapping.
+- 🚨**Cartopy**: Used for geographical data processing.  
+
 
 ## References
 

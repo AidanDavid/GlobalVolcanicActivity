@@ -78,10 +78,12 @@ Visualizations are generated using Python libraries and stored in the `images` d
 ## References
 
 ### Data Sources
-- **Smithsonian Institution Global Volcanism Program**: ([Comprehensive historical and geological volcanic data.](https://volcano.si.edu/))
 - **NGDC Hazard Events Database**: National Geography Data Center(NGDC), Event-specific volcanic data, including fatalities and damages.
 - **NGDC Location Search**: [NGDC Volcano Location Search](https://www.ngdc.noaa.gov/hazel/view/hazards/volcano/loc-search/).
 - **NGDC Event Search**: [NGDC Volcano Event Search](https://www.ngdc.noaa.gov/hazel/view/hazards/volcano/event-search/).
+
+### Reference for Verifying the Data Sources
+- **Smithsonian Institution Global Volcanism Program**: ([Comprehensive historical and geological volcanic data.](https://volcano.si.edu/)). This data was used to verify the accuracy and reliability of the data sources, ensuring that the latitude and longitude coordinates match those provided on the website.
 
 ### Code References
 - **Cartopy for Geospatial Mapping**: [Foundations of Cartopy](https://foundations.projectpythia.org/core/cartopy/cartopy.html)

@@ -47,6 +47,10 @@ Launch Jupyter Notebook:
 ```bash
 jupyter notebook
 ```
+Ensure all libraries are properly installed:
+```
+pip install -r requirements.txt
+```
 
 Open the relevant notebook file and execute the cells step by step to analyze and visualize the volcanic data.
 

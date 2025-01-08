@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Volcanic Activity</title>
+    
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+    
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+        
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        #map {
+            height: 70vh;
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        
+        .controls {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .filter-group {
+            margin: 10px 0;
+            display: inline-block;
+            margin-right: 20px;
+        }
+        
+        select, input {
+            padding: 8px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+        
+        select:hover, input:hover {
+            border-color: #999;
+        }
+        
+        select:focus, input:focus {
+            outline: none;
+            border-color: #4169E1;
+            box-shadow: 0 0 0 2px rgba(65,105,225,0.1);
+        }
+        
+        .legend {
+            background: white;
+            padding: 12px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .legend h4 {
+            margin: 0 0 10px 0;
+            color: #333;
+        }
+        
+        .legend-item {
+            margin: 8px 0;
+            font-size: 14px;
+        }
+        
+        .color-box {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            margin-right: 8px;
+            border: 1px solid #000;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
+        
+        small {
+            display: block;
+            margin-top: 8px;
+            color: #666;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <h1>Global Volcanic Activity</h1>
+    
+    <!-- Filter controls -->
+    <div class="controls">
+        <div class="filter-group">
+            <label for="status-filter">Status: </label>
+            <select id="status-filter">
+                <option value="all">All</option>
+                <option value="Historical">Historical</option>
+                <option value="Holocene">Holocene</option>
+                <option value="Fumarolic">Fumarolic</option>
+            </select>
+        </div>
+        
+        <div class="filter-group">
+            <label for="vei-filter">VEI (Volcanic Explosivity Index): </label>
+            <select id="vei-filter">
+                <option value="all">All</option>
+                <option value="0">VEI ≥ 0</option>
+                <option value="1">VEI ≥ 1</option>
+                <option value="2">VEI ≥ 2</option>
+                <option value="3">VEI ≥ 3</option>
+                <option value="4">VEI ≥ 4</option>
+                <option value="5">VEI ≥ 5</option>
+                <option value="6">VEI ≥ 6</option>
+                <option value="7">VEI ≥ 7</option>
+            </select>
+        </div>
+        
+        <div class="filter-group">
+            <label for="country-filter">Country: </label>
+            <select id="country-filter">
+                <option value="all">All Countries</option>
+            </select>
+        </div>
+        
+        <div class="filter-group">
+            <label for="type-filter">Volcano Type: </label>
+            <select id="type-filter">
+                <option value="all">All Types</option>
+            </select>
+        </div>
+        
+        <div class="filter-group">
+            <label for="elevation-min">Min Elevation (m): </label>
+            <input type="number" id="elevation-min" placeholder="Min">
+            <label for="elevation-max">Max: </label>
+            <input type="number" id="elevation-max" placeholder="Max">
+        </div>
+    </div>
+
+    <!-- Map container -->
+    <div id="map"></div>
+
+    <!-- Leaflet JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+    
+    <!-- PapaParse for CSV parsing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+    <script>
+        // Initialize the map
+        const map = L.map('map').setView([20, 0], 2);
+
+        // Add Open street map
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '© OpenStreetMap contributors'
+        }).addTo(map);
+
+        // Initialize markers layer group
+        let markersLayer = L.layerGroup().addTo(map);
+
+        // Function to determine marker color based on status and VEI
+        function getMarkerColor(volcano, veiFilter) {
+            // Check VEI filter first if active
+            if (veiFilter !== 'all' && volcano.vei >= parseInt(veiFilter)) {
+                // Use different shades of red based on VEI
+                switch(Math.floor(volcano.vei)) {
+                    case 7: return '#8B0000';  // Darkest red
+                    case 6: return '#B22222';  // Dark red
+                    case 5: return '#DC143C';  // Crimson
+                    case 4: return '#FF0000';  // Red
+                    case 3: return '#FF4444';  // Bright red
+                    case 2: return '#FF6666';  // Light red
+                    case 1: return '#FF8888';  // Lighter red
+                    case 0: return '#FFAAAA';  // Lightest red
+                    default: return '#FF0000'; // Default red
+                }
+            }
+            // If not, use status colors
+            if (volcano.Status === 'Historical') return '#4169E1'; // Royal Blue
+            if (volcano.Status === 'Holocene') return '#4BC0C0'; // Turquoise
+            if (volcano.Status === 'Fumarolic') return '#9966FF'; // Purple
+            return '#808080'; // Grey for unknown/other
+        }
+
+        // Determine marker size based on elevation
+        function getMarkerSize(elevation) {
+            if (!elevation) return 6;
+            return Math.min(Math.max(elevation / 1000, 6), 12);
+        }
+
+        // Load and parse CSV data
+        fetch('data/Vol_combine.csv')
+            .then(response => response.text())
+            .then(csvData => {
+                Papa.parse(csvData, {
+                    header: true,
+                    dynamicTyping: true,
+                    complete: function(results) {
+                        window.volcanoData = results.data;
+                        populateFilterOptions();
+                        displayVolcanoes();
+                    }
+                });
+            });
+
+        // Function to create filter dropdowns
+        function populateFilterOptions() {
+            const countries = new Set();
+            const types = new Set();
+            
+            window.volcanoData.forEach(volcano => {
+                if (volcano.Country) countries.add(volcano.Country);
+                if (volcano.Type) types.add(volcano.Type);
+            });
+
+            // Country filter
+            const countrySelect = document.getElementById('country-filter');
+            Array.from(countries).sort().forEach(country => {
+                const option = document.createElement('option');
+                option.value = country;
+                option.textContent = country;
+                countrySelect.appendChild(option);
+            });
+
+            // Type filter
+            const typeSelect = document.getElementById('type-filter');
+            Array.from(types).sort().forEach(type => {
+                const option = document.createElement('option');
+                option.value = type;
+                option.textContent = type;
+                typeSelect.appendChild(option);
+            });
+        }
+
+        // Function to show volcanoes based on filters
+        function displayVolcanoes() {
+            markersLayer.clearLayers();
+            
+            const statusFilter = document.getElementById('status-filter').value;
+            const countryFilter = document.getElementById('country-filter').value;
+            const typeFilter = document.getElementById('type-filter').value;
+            const veiFilter = document.getElementById('vei-filter').value;
+            const elevationMin = parseFloat(document.getElementById('elevation-min').value) || -Infinity;
+            const elevationMax = parseFloat(document.getElementById('elevation-max').value) || Infinity;
+            
+            window.volcanoData.forEach(volcano => {
+                if (!volcano.Latitude || !volcano.Longitude) return;
+                
+                // Apply the filters
+                if (statusFilter !== 'all' && volcano.Status !== statusFilter) return;
+                if (countryFilter !== 'all' && volcano.Country !== countryFilter) return;
+                if (typeFilter !== 'all' && volcano.Type !== typeFilter) return;
+                if (veiFilter !== 'all' && (!volcano.vei || volcano.vei < parseInt(veiFilter))) return;
+                if (volcano['Elevation (m)'] < elevationMin || volcano['Elevation (m)'] > elevationMax) return;
+
+                const marker = L.circleMarker([volcano.Latitude, volcano.Longitude], {
+                    radius: getMarkerSize(volcano['Elevation (m)']),
+                    fillColor: getMarkerColor(volcano, veiFilter),
+                    color: '#000',
+                    weight: 1,
+                    opacity: 1,
+                    fillOpacity: 0.7
+                });
+
+                // Create popups
+                const popupContent = `
+                    <strong>${volcano['Volcano Name'] || 'Unnamed'}</strong><br>
+                    <strong>Country:</strong> ${volcano.Country || 'Unknown'}<br>
+                    <strong>Type:</strong> ${volcano.Type || 'Unknown'}<br>
+                    <strong>Status:</strong> ${volcano.Status || 'Unknown'}<br>
+                    <strong>Elevation:</strong> ${volcano['Elevation (m)'] ? volcano['Elevation (m)'] + 'm' : 'Unknown'}<br>
+                    <strong>Last Known Eruption:</strong> ${volcano['Last Known Eruption'] || 'Unknown'}<br>
+                    ${volcano.vei ? `<strong>VEI:</strong> ${volcano.vei}<br>` : ''}
+                    ${volcano.total_deaths ? `<strong>Total Deaths:</strong> ${volcano.total_deaths}<br>` : ''}
+                    ${volcano.total_damage_mil ? `<strong>Total Damage (Millions):</strong> $${volcano.total_damage_mil}<br>` : ''}
+                `;
+
+                marker.bindPopup(popupContent);
+                markersLayer.addLayer(marker);
+            });
+        }
+
+        // Add event listeners (filters)
+        document.getElementById('status-filter').addEventListener('change', displayVolcanoes);
+        document.getElementById('country-filter').addEventListener('change', displayVolcanoes);
+        document.getElementById('type-filter').addEventListener('change', displayVolcanoes);
+        document.getElementById('vei-filter').addEventListener('change', displayVolcanoes);
+        document.getElementById('elevation-min').addEventListener('input', displayVolcanoes);
+        document.getElementById('elevation-max').addEventListener('input', displayVolcanoes);
+
+        // Add a legend
+        const legend = L.control({position: 'bottomright'});
+        legend.onAdd = function (map) {
+            const div = L.DomUtil.create('div', 'legend');
+            div.innerHTML = `
+                <h4>Volcano Status</h4>
+                <div class="legend-item"><span class="color-box" style="background: #4169E1"></span>Historical</div>
+                <div class="legend-item"><span class="color-box" style="background: #4BC0C0"></span>Holocene</div>
+                <div class="legend-item"><span class="color-box" style="background: #9966FF"></span>Fumarolic</div>
+                <div class="legend-item"><span class="color-box" style="background: #808080"></span>Other</div>
+                <small>Use VEI filter for volcanic eruption intensity</small>
+            `;
+            return div;
+        };
+        legend.addTo(map);
+    </script>
+</body>
+</html>

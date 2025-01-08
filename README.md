@@ -56,8 +56,8 @@ The project includes a range of interactive and static visualizations:
 
 - **Geospatial maps**: Visualizing volcano locations and activity statuses.
 - **Time series plots**: Tracking volcanic activity trends over time.
-- **Bar charts**: Analyzing average total damage and deaths by volcano type.
-- **Scatter plots**: Identifying relationships between VEI and other factors.
+- **Bar charts**: Analyzing average total damage and deaths by volcano type, ranking of recorded eruptions by countries, Number of Eruptions per VEI
+- **Pie charts**: percentage of Tsunami and Earthquake events
 
 Visualizations are generated using Python libraries and stored in the `images` directory.
 

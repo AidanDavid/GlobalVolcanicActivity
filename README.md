@@ -21,6 +21,14 @@ The dataset includes comprehensive information about volcanoes, such as their lo
 
 ## Usage Guide
 
+### Data Usage Description
+
+The data was downloaded from the sources listed in the [Data Sources](#data-sources) section and saved in the `data` directory. Two TSV files, `locations.csv` and `event.csv`, were converted to CSV format and then combined using PostgreSQL.
+
+- **Location CSV**: Contains latitude and longitude information for all volcanoes.  
+- **Event CSV**: Lists all active volcanoes.  
+- **Combined CSV**: A left join of the `event.csv` onto the `location.csv`, resulting in a dataset with all volcano locations and an indication of active volcanoes.
+
 ### 1. Glone the Repo
 
 To run this project locally, follow these steps:
@@ -48,8 +56,8 @@ The project includes a range of interactive and static visualizations:
 
 - **Geospatial maps**: Visualizing volcano locations and activity statuses.
 - **Time series plots**: Tracking volcanic activity trends over time.
-- **Bar charts**: Analyzing average total damage and deaths by volcano type.
-- **Scatter plots**: Identifying relationships between VEI and other factors.
+- **Bar charts**: Analyzing average total damage and deaths by volcano type, ranking of recorded eruptions by countries, Number of Eruptions per VEI
+- **Pie charts**: percentage of Tsunami and Earthquake events
 
 Visualizations are generated using Python libraries and stored in the `images` directory.
 

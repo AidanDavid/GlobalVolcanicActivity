@@ -1,4 +1,4 @@
-# Global Volcanic Activity
+# 🌋Global Volcanic Activity🌋
 
 Analyzing global volcanic activity, geological characteristics, and historical eruption patterns.
 
@@ -67,8 +67,12 @@ Visualizations are generated using Python libraries and stored in the `images` d
 - **Pandas**: For data manipulation and aggregation.  
 - **Matplotlib & Plotly**: For static and interactive visualizations.  
 - **PostgreSQL**: Database for storing and managing volcanic data.  
-- **Leaflet.js**: For geospatial mapping.
-- 🚨**Cartopy**: Used for geographical data processing.  
+- **Leaflet.js**: For geospatial mapping (loaded via CDN).  
+  - JavaScript: [v1.9.4](https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js)  
+  - CSS: [v1.9.4](https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css)  
+- 🚨 **PapaParse**: For CSV parsing (loaded via CDN).  
+  - JavaScript: [v5.4.1](https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js)  
+- 🚨 **Cartopy**: Used for geographical data processing.  
 
 
 ## References

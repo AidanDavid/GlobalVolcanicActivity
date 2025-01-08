@@ -27,7 +27,7 @@ The data was downloaded from the sources listed in the [Data Sources](#data-sour
 
 - **Location CSV**: Contains latitude and longitude information for all volcanoes.  
 - **Event CSV**: Lists all active volcanoes.  
-- **Combined CSV**: A left join of the `event.cvs` onto the `location.cvs`, resulting in a dataset with all volcano locations and an indication of active volcanoes.
+- **Combined CSV**: A left join of the `event.csv` onto the `location.csv`, resulting in a dataset with all volcano locations and an indication of active volcanoes.
 
 ### 1. Glone the Repo
 
